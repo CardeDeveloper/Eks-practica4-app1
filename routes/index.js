@@ -7,6 +7,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/revisasivivo', function(req, res, next) {
-  res.json({"status":"estoy bien"});
+  res.send({status:"estoy bien"});
 });
 module.exports = router;
