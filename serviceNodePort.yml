@@ -1,37 +1,15 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: despliegue-app-1
+  name: servicio-app-1
   labels:
     name: despliegue-app-1
     app: testing-kube-app
 spec:
-  replicas: 1
+  type: NodePort
   selector:
-    matchLabels:
-      name: testing-kube-pod
-      app: testing-kube-app
-  template:
-    metadata:
-      name: testing-kube-pod
-      labels:
-        name: testing-kube-pod
-        app: testing-kube-app
-    spec:
-      containers:
-        - name: testing-kube-container
-          image: "345554669220.dkr.ecr.us-east-1.amazonaws.com/despliegue-app-1"
-          imagePullPolicy: Always
-          resources:
-            limits:
-              memory: 512Mi
-              cpu: "1"
-            requests:
-              memory: 128Mi
-              cpu: "0.2"
-          livenessProbe:
-            httpGet:
-              path: /revisasivivo
-              port: 3500
-            initialDelaySeconds: 5
-            periodSeconds: 5
+    app: testing-kube-app
+  ports:
+    - protocol: TCP
+      port: 3500
+      nodePort: 30027
